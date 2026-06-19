@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  FACULTY_COORDINATOR
+  STUDENT_COORDINATOR
+  TECH_COORDINATOR
+  CONTENT_COORDINATOR
+  SOCIAL_MEDIA_COORDINATOR
+  CLUB_MEMBER
+  GUEST
+}
+
+model User {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  email            String   @unique
+  password         String
+  firstName        String
+  lastName         String
+  studentId        String?  @unique
+  role             Role     @default(GUEST)
+  isApproved       Boolean  @default(false)
+  points           Int      @default(0)
+  profileImage     String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  requestsCreated  Request[] @relation("RequestCreator")
+  teams            TeamMember[]
+  attendances      Attendance[]
+  notifications    Notification[]
+}
+
+model Event {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  name                String
+  description         String
+  venue               String
+  date                DateTime
+  time                String
+  rules               String[]
+  tags                String[]
+  teamSize            Int      @default(1)
+  registrationDeadline DateTime
+  bannerImage         String?
+  isPublished         Boolean  @default(false)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  requests            Request[]
+  attendances         Attendance[]
+}
+
+enum RequestStatus {
+  PENDING
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+}
+
+enum RequestType {
+  EVENT_PERMISSION
+  BUDGET_APPROVAL
+  VENUE_REQUEST
+  SOCIAL_MEDIA_APPROVAL
+  CONTENT_PUBLISHING
+  CERTIFICATE_AUTHORIZATION
+  EXTERNAL_COLLABORATION
+}
+
+model Request {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  description    String
+  type           RequestType
+  status         RequestStatus @default(PENDING)
+  creatorId      String        @db.ObjectId
+  eventId        String?       @db.ObjectId
+  remarks        String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  creator        User          @relation("RequestCreator", fields: [creatorId], references: [id])
+  event          Event?        @relation(fields: [eventId], references: [id])
+}
+
+model Team {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  teamId         String        @unique // Auto-generated e.g. TEAM-1234
+  name           String
+  qrCode         String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  members        TeamMember[]
+}
+
+model TeamMember {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  teamId         String   @db.ObjectId
+  userId         String   @db.ObjectId
+  isLeader       Boolean  @default(false)
+
+  team           Team     @relation(fields: [teamId], references: [id])
+  user           User     @relation(fields: [userId], references: [id])
+}
+
+model Attendance {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String   @db.ObjectId
+  eventId        String   @db.ObjectId
+  checkInTime    DateTime @default(now())
+  checkOutTime   DateTime?
+  status         String   @default("PRESENT") // LATE, PRESENT
+
+  user           User     @relation(fields: [userId], references: [id])
+  event          Event    @relation(fields: [eventId], references: [id])
+}
+
+model Notification {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String   @db.ObjectId
+  title          String
+  message        String
+  isRead         Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  user           User     @relation(fields: [userId], references: [id])
+}
