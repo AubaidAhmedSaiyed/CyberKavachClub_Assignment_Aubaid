@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, Users, Plus, ShieldAlert } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
@@ -99,15 +100,14 @@ export default function Events() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Users className="w-4 h-4 text-primary" />
-                    <span>Team Size: {event.teamSize}</span>
+                    <span>{event._count?.registrations || 0} / {event.capacity || 100} Registered</span>
                   </div>
                 </div>
-
-                <div className="mt-6">
-                  <button className="w-full bg-secondary hover:bg-secondary/80 text-white py-2 rounded-xl font-medium transition-colors border border-border hover:border-primary/50">
-                    View Details
-                  </button>
-                </div>
+              </div>
+              <div className="px-5 pb-5 pt-0 mt-auto">
+                <Link to={`/dashboard/events/${event.id}`} className="w-full bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl py-2 flex items-center justify-center transition-colors font-medium">
+                  View Details
+                </Link>
               </div>
             </motion.div>
           ))}

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { Activity, Users, FileText, CheckCircle, ShieldAlert } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area } from 'recharts';
+import { Activity, Users, FileText, ShieldAlert } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
 export default function DashboardHome() {
   const data = [

@@ -11,11 +11,11 @@ export const createRequest = async (req: Request, res: Response): Promise<void> 
       data: {
         title,
         description,
-        type,
-        eventId,
+        type: type === 'EVENT_APPROVAL' ? 'EVENT_PERMISSION' : type,
+        eventId: eventId || null,
         creatorId,
-        status: RequestStatus.PENDING,
-      },
+        status: 'PENDING'
+      }
     });
 
     res.status(201).json({ message: 'Approval request submitted.', request });

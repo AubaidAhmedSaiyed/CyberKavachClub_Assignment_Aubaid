@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Scan, CheckSquare, Clock, UserCheck } from 'lucide-react';
 import api from '../../api/axios';

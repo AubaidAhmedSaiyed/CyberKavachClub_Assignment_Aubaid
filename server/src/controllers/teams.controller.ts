@@ -17,7 +17,8 @@ export const createTeam = async (req: Request, res: Response): Promise<void> => 
         members: {
           create: [
             { userId: creatorId, isLeader: true },
-            ...members.map((id: string) => ({ userId: id, isLeader: false }))
+            // Only add valid members (filtering out potentially empty strings)
+            ...members.filter((id: string) => id.length === 24).map((id: string) => ({ userId: id, isLeader: false }))
           ]
         }
       },

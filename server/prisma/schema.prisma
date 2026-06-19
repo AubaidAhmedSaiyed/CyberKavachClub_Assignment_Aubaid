@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -29,11 +30,18 @@ model User {
   profileImage     String?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
+  notificationPrefs Json?    // e.g., { email: true, push: true }
 
   requestsCreated  Request[] @relation("RequestCreator")
   teams            TeamMember[]
   attendances      Attendance[]
   notifications    Notification[]
+  waitlists        Waitlist[]
+  registrations    EventRegistration[]
+  auditLogs        AuditLog[]
+  badges           UserBadge[]
+  pointHistory     PointHistory[]
+  feedbacks        EventFeedback[]
 }
 
 model Event {
@@ -45,15 +53,23 @@ model Event {
   time                String
   rules               String[]
   tags                String[]
+  categories          String[]
   teamSize            Int      @default(1)
+  capacity            Int      @default(100)
   registrationDeadline DateTime
   bannerImage         String?
   isPublished         Boolean  @default(false)
+  isArchived          Boolean  @default(false)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
+  certificateTemplateId String?  @db.ObjectId
 
   requests            Request[]
   attendances         Attendance[]
+  waitlists           Waitlist[]
+  registrations       EventRegistration[]
+  feedbacks           EventFeedback[]
+  certificateTemplate CertificateTemplate? @relation(fields: [certificateTemplateId], references: [id])
 }
 
 enum RequestStatus {
@@ -105,6 +121,7 @@ model TeamMember {
   teamId         String   @db.ObjectId
   userId         String   @db.ObjectId
   isLeader       Boolean  @default(false)
+  joinedAt       DateTime @default(now())
 
   team           Team     @relation(fields: [teamId], references: [id])
   user           User     @relation(fields: [userId], references: [id])
@@ -117,6 +134,7 @@ model Attendance {
   checkInTime    DateTime @default(now())
   checkOutTime   DateTime?
   status         String   @default("PRESENT") // LATE, PRESENT
+  scannedBy      String?  @db.ObjectId // ID of coordinator who scanned
 
   user           User     @relation(fields: [userId], references: [id])
   event          Event    @relation(fields: [eventId], references: [id])
@@ -127,8 +145,95 @@ model Notification {
   userId         String   @db.ObjectId
   title          String
   message        String
+  type           String   @default("SYSTEM") // SYSTEM, APPROVAL, REMINDER
   isRead         Boolean  @default(false)
   createdAt      DateTime @default(now())
 
   user           User     @relation(fields: [userId], references: [id])
+}
+
+model EventRegistration {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  eventId   String   @db.ObjectId
+  status    String   @default("REGISTERED") // REGISTERED, CANCELLED
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  event     Event    @relation(fields: [eventId], references: [id])
+}
+
+model Waitlist {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  eventId   String   @db.ObjectId
+  position  Int
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  event     Event    @relation(fields: [eventId], references: [id])
+}
+
+model CertificateTemplate {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  background  String   // URL to image
+  textConfig  Json     // { x, y, font, color, etc }
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  events      Event[]
+}
+
+model AuditLog {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String?  @db.ObjectId
+  action    String
+  details   String
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+model Badge {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  icon        String
+  description String
+  createdAt   DateTime @default(now())
+
+  users       UserBadge[]
+}
+
+model UserBadge {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  badgeId   String   @db.ObjectId
+  awardedAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  badge     Badge    @relation(fields: [badgeId], references: [id])
+}
+
+model PointHistory {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  points    Int
+  reason    String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model EventFeedback {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  eventId   String   @db.ObjectId
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  event     Event    @relation(fields: [eventId], references: [id])
 }

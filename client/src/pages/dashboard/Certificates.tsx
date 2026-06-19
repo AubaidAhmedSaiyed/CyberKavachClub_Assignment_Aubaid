@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FileBadge, Upload, Download, Settings, Play } from 'lucide-react';
+import { FileBadge, Upload, Settings, Play } from 'lucide-react';
 import api from '../../api/axios';
 
 export default function Certificates() {

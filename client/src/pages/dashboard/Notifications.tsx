@@ -63,7 +63,7 @@ export default function Notifications() {
 
       <div className="bg-card/40 border border-border rounded-2xl p-2 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
         <AnimatePresence>
-          {notifications.map((notif, idx) => (
+          {notifications.map((notif) => (
             <motion.div 
               key={notif.id}
               initial={{ opacity: 0, x: -20 }}
