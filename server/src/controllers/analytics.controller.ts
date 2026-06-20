@@ -22,7 +22,7 @@ export const getAdminAnalytics = async (req: Request, res: Response): Promise<vo
 
     const recentRegistrations = await prisma.eventRegistration.findMany({
       take: 10,
-      orderBy: { registeredAt: 'desc' },
+      orderBy: { createdAt: 'desc' },
       include: {
         user: { select: { firstName: true, lastName: true, email: true } },
         event: { select: { name: true, date: true } }
@@ -61,7 +61,7 @@ export const getMemberAnalytics = async (req: Request, res: Response): Promise<v
     const myRegisteredEvents = await prisma.eventRegistration.findMany({
       where: { userId },
       include: { event: true },
-      orderBy: { registeredAt: 'desc' },
+      orderBy: { createdAt: 'desc' },
       take: 10
     });
 
