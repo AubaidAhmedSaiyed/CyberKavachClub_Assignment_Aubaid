@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { SocketProvider } from './context/SocketContext';
+import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -24,7 +25,7 @@ function App() {
           <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30">
             <CommandPalette />
             <Routes>
-              <Route path="/" element={<Navigate to="/login" />} />
+              <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               
