@@ -1,1 +1,29 @@
+# 🛡️ CyberKavach Club Platform
 
+A production-grade, full-stack SaaS platform designed for managing university cyber security clubs. CyberKavach handles event registrations, real-time notifications, attendance tracking, and dynamic role-based dashboards.
+
+## 🚀 Live Links
+- **Frontend (Vercel):** [https://cyberkavachclub.vercel.app](https://cyberkavachclub.vercel.app)
+- **Backend API (Render):** [https://cyberkavachclub-assignment-aubaid.onrender.com](https://cyberkavachclub-assignment-aubaid.onrender.com)
+
+---
+
+## 🛠️ Tech Stack
+- **Frontend:** React 19, Vite, Tailwind CSS, Framer Motion, Socket.io-client
+- **Backend:** Node.js, Express, Socket.io
+- **Database:** MongoDB
+- **ORM:** Prisma
+- **Authentication:** JSON Web Tokens (JWT), bcryptjs
+
+---
+
+## ✨ Key Features
+- **Role-Based Access Control:** Distinct interfaces and permissions for Guests, Members, and Administrators (Coordinators).
+- **Event Management:** Admins can publish events; users can register, join waitlists, and track their participation.
+- **Real-Time Notifications:** Live system-wide alerts powered by WebSockets (Socket.io).
+- **Interactive Dashboards:** Analytics, metrics, and data visualization utilizing Recharts.
+- **Attendance & Rewards:** Dynamic point tracking, badge assignments, and certificate verification.
+- **Team Creation:** Form teams and squads for CTFs, Hackathons, and group assignments.
+
+📄 License
+This project is licensed under the MIT License.
