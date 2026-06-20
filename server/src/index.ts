@@ -37,6 +37,10 @@ app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'ok', message: 'CyberKavach API is running' });
 });
 
+app.get('/', (req: Request, res: Response) => {
+  res.status(200).send('CyberKavach Backend API is online.');
+});
+
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
