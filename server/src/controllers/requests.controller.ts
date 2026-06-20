@@ -5,7 +5,7 @@ import { Role, RequestStatus } from '@prisma/client';
 export const createRequest = async (req: Request, res: Response): Promise<void> => {
   try {
     const { title, description, type, eventId } = req.body;
-    const creatorId = (req as any).user.id;
+    const creatorId = req.user!.id;
     
     const request = await prisma.request.create({
       data: {
@@ -27,8 +27,8 @@ export const createRequest = async (req: Request, res: Response): Promise<void> 
 
 export const getRequests = async (req: Request, res: Response): Promise<void> => {
   try {
-    const userRole = (req as any).user.role;
-    const userId = (req as any).user.id;
+    const userRole = req.user!.role;
+    const userId = req.user!.id;
 
     let whereClause = {};
     if (userRole === Role.CLUB_MEMBER || userRole === Role.GUEST) {

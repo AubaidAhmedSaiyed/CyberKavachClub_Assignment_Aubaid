@@ -65,7 +65,7 @@ io.on('connection', (socket) => {
 export { io };
 
 // Error handling middleware
-app.use((err: any, req: Request, res: Response, next: express.NextFunction) => {
+app.use((err: Error, req: Request, res: Response, next: express.NextFunction) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Internal Server Error' });
 });

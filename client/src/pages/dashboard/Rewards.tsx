@@ -5,7 +5,6 @@ import api from '../../api/axios';
 
 export default function Rewards() {
   const [users, setUsers] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchLeaderboard();

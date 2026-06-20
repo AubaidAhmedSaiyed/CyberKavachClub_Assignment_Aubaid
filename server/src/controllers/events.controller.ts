@@ -34,7 +34,7 @@ export const createEvent = async (req: Request, res: Response): Promise<void> =>
 
 export const getEvents = async (req: Request, res: Response): Promise<void> => {
   try {
-    const userRole = (req as any).user?.role;
+    const userRole = req.user?.role;
     const whereClause = userRole === Role.GUEST || userRole === Role.CLUB_MEMBER 
       ? { isPublished: true, isArchived: false } 
       : { isArchived: false };
@@ -121,7 +121,7 @@ export const archiveEvent = async (req: Request, res: Response): Promise<void> =
 export const registerForEvent = async (req: Request, res: Response): Promise<void> => {
   try {
     const eventId = req.params.id as string;
-    const userId = (req as any).user.id as string;
+    const userId = req.user!.id as string;
 
     const event = await prisma.event.findUnique({
       where: { id: eventId },
@@ -165,7 +165,7 @@ export const registerForEvent = async (req: Request, res: Response): Promise<voi
 export const cancelRegistration = async (req: Request, res: Response): Promise<void> => {
   try {
     const eventId = req.params.id as string;
-    const userId = (req as any).user.id as string;
+    const userId = req.user!.id as string;
 
     // Check if waitlisted
     const waitlist = await prisma.waitlist.findFirst({ where: { eventId, userId } });

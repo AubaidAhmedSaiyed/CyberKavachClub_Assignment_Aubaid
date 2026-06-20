@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ShieldAlert, CheckCircle, XCircle, Clock, FileText, Calendar } from 'lucide-react';
+
+import { ShieldAlert, CheckCircle, XCircle, Clock, Calendar } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import api from '../../api/axios';
 import { useSocket } from '../../context/SocketContext';

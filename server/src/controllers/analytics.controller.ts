@@ -46,7 +46,7 @@ export const getAdminAnalytics = async (req: Request, res: Response): Promise<vo
 
 export const getMemberAnalytics = async (req: Request, res: Response): Promise<void> => {
   try {
-    const userId = (req as any).user.id;
+    const userId = req.user!.id;
 
     const user = await prisma.user.findUnique({
       where: { id: userId },

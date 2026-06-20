@@ -5,7 +5,7 @@ import crypto from 'crypto';
 export const createTeam = async (req: Request, res: Response): Promise<void> => {
   try {
     const { name, members } = req.body; // members is array of userIds
-    const creatorId = (req as any).user.id;
+    const creatorId = req.user!.id;
     
     // Auto-generate Team ID
     const teamId = `TEAM-${crypto.randomBytes(3).toString('hex').toUpperCase()}`;
