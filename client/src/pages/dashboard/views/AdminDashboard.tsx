@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Calendar, Award, CheckSquare, Clock, ShieldAlert } from 'lucide-react';
-import axios from 'axios';
+import api from '../../../api/axios';
 import { useSocket } from '../../../context/SocketContext';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -19,7 +19,7 @@ export default function AdminDashboard() {
 
   const fetchAnalytics = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/analytics/admin', { withCredentials: true });
+      const { data } = await api.get('/analytics/admin');
       setStats(data);
     } catch (err) {
       console.error(err);

@@ -162,7 +162,10 @@ export default function EventDetails() {
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-white">Admin: Registration Roster</h2>
             <button 
-              onClick={() => window.open(`http://localhost:5000/api/events/${id}/export?format=csv`)}
+              onClick={() => {
+                const baseUrl = import.meta.env.VITE_API_URL || 'https://cyberkavachclub-assignment-aubaid.onrender.com/api';
+                window.open(`${baseUrl}/events/${id}/export?format=csv`);
+              }}
               className="bg-primary/20 hover:bg-primary text-primary hover:text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors border border-primary/50"
             >
               Export CSV

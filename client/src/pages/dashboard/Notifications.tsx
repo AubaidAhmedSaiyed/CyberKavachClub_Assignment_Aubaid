@@ -14,7 +14,8 @@ export default function Notifications() {
 
   useEffect(() => {
     if (!user) return;
-    const socket = io('http://localhost:5000');
+    const socketUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'https://cyberkavachclub-assignment-aubaid.onrender.com';
+    const socket = io(socketUrl);
     socket.emit('join', user.id);
 
     socket.on('notification', (data) => {

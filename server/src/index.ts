@@ -43,8 +43,9 @@ import { Server } from 'socket.io';
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: '*',
-    methods: ['GET', 'POST']
+    origin: ['http://localhost:5173', 'https://cyberkavachclub.vercel.app', 'https://cyberkavachclub.vercel.app/'],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    credentials: true
   }
 });
 

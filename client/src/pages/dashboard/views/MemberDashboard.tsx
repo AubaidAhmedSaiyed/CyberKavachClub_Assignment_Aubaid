@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Star, FileBadge, Calendar, CheckSquare, Clock } from 'lucide-react';
-import axios from 'axios';
+import api from '../../../api/axios';
 import { useSocket } from '../../../context/SocketContext';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
@@ -20,7 +20,7 @@ export default function MemberDashboard() {
 
   const fetchAnalytics = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/analytics/member', { withCredentials: true });
+      const { data } = await api.get('/analytics/member');
       setStats(data);
     } catch (err) {
       console.error(err);

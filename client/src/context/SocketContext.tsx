@@ -26,7 +26,8 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
-    const newSocket = io('http://localhost:5000', {
+    const socketUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'https://cyberkavachclub-assignment-aubaid.onrender.com';
+    const newSocket = io(socketUrl, {
       withCredentials: true,
       autoConnect: true,
     });
