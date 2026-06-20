@@ -4,19 +4,31 @@ import { motion } from 'framer-motion';
 import { Calendar, MapPin, Users, Plus, ShieldAlert } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import api from '../../api/axios';
+import { useSocket } from '../../context/SocketContext';
 
 export default function Events() {
   const { user } = useAuth();
   const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const { socket } = useSocket();
   const [newEvent, setNewEvent] = useState({
     name: '', description: '', venue: '', date: '', time: '', teamSize: 1, registrationDeadline: new Date().toISOString()
   });
 
   useEffect(() => {
     fetchEvents();
-  }, []);
+
+    if (socket) {
+      socket.on('SYSTEM_UPDATE', () => {
+        fetchEvents();
+      });
+    }
+
+    return () => {
+      if (socket) socket.off('SYSTEM_UPDATE');
+    };
+  }, [socket]);
 
   const fetchEvents = async () => {
     try {

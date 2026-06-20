@@ -1,5 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { hasPermission } from '../utils/rbac';
 
 export default function ProtectedRoute({ children, allowedRoles }: { children: React.ReactNode, allowedRoles?: string[] }) {
   const { user, loading } = useAuth();
@@ -12,6 +13,13 @@ export default function ProtectedRoute({ children, allowedRoles }: { children: R
   }
 
   if (allowedRoles && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  // Base path resolution for dynamic params (e.g. /dashboard/events/123 -> /dashboard/events)
+  const basePath = location.pathname.split('/').slice(0, 3).join('/');
+  
+  if (!hasPermission(user.role, basePath)) {
     return <Navigate to="/dashboard" replace />;
   }
 

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import api from '../../api/axios';
 import { Calendar, MapPin, Users, ArrowLeft, CheckCircle, Clock, AlertTriangle } from 'lucide-react';
+import { useSocket } from '../../context/SocketContext';
 
 export default function EventDetails() {
   const { id } = useParams();
@@ -12,10 +13,21 @@ export default function EventDetails() {
   const [loading, setLoading] = useState(true);
   const [registering, setRegistering] = useState(false);
   const [error, setError] = useState('');
+  const { socket } = useSocket();
 
   useEffect(() => {
     fetchEventDetails();
-  }, [id]);
+
+    if (socket) {
+      socket.on('SYSTEM_UPDATE', () => {
+        fetchEventDetails();
+      });
+    }
+
+    return () => {
+      if (socket) socket.off('SYSTEM_UPDATE');
+    };
+  }, [id, socket]);
 
   const fetchEventDetails = async () => {
     try {

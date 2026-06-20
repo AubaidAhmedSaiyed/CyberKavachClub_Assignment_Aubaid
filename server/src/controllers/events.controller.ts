@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { prisma } from '../utils/db';
 import { Role } from '@prisma/client';
+import { io } from '../index';
 
 export const createEvent = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -24,6 +25,7 @@ export const createEvent = async (req: Request, res: Response): Promise<void> =>
     });
 
     res.status(201).json({ message: 'Event created. Waiting for publishing approval.', event: newEvent });
+    io.emit('SYSTEM_UPDATE');
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
@@ -79,6 +81,7 @@ export const publishEvent = async (req: Request, res: Response): Promise<void> =
       data: { isPublished: true },
     });
     res.status(200).json({ message: 'Event published successfully', event });
+    io.emit('SYSTEM_UPDATE');
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
@@ -93,6 +96,7 @@ export const updateEvent = async (req: Request, res: Response): Promise<void> =>
       data: req.body,
     });
     res.status(200).json({ message: 'Event updated successfully', event });
+    io.emit('SYSTEM_UPDATE');
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
@@ -107,6 +111,7 @@ export const archiveEvent = async (req: Request, res: Response): Promise<void> =
       data: { isArchived: true },
     });
     res.status(200).json({ message: 'Event archived successfully' });
+    io.emit('SYSTEM_UPDATE');
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
@@ -138,6 +143,7 @@ export const registerForEvent = async (req: Request, res: Response): Promise<voi
       const position = event._count.waitlists + 1;
       await prisma.waitlist.create({ data: { eventId, userId, position } });
       res.status(201).json({ message: 'Event is full. Added to waitlist.', waitlisted: true, position });
+      io.emit('SYSTEM_UPDATE');
       return;
     }
 
@@ -149,6 +155,7 @@ export const registerForEvent = async (req: Request, res: Response): Promise<voi
     await prisma.user.update({ where: { id: userId }, data: { points: { increment: 5 } } });
 
     res.status(201).json({ message: 'Successfully registered for event', waitlisted: false });
+    io.emit('SYSTEM_UPDATE');
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
@@ -207,6 +214,7 @@ export const cancelRegistration = async (req: Request, res: Response): Promise<v
     }
 
     res.status(200).json({ message: 'Registration cancelled' });
+    io.emit('SYSTEM_UPDATE');
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });

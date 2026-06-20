@@ -1,14 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { LayoutDashboard, Calendar, Users, CheckSquare, Award, ShieldAlert, FileBadge, Bell } from 'lucide-react';
+import { LayoutDashboard, Calendar, Users, CheckSquare, Award, ShieldAlert, FileBadge, Bell, BarChart3, Settings } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import clsx from 'clsx';
+import { hasPermission } from '../utils/rbac';
 
 export default function Sidebar() {
   const { user } = useAuth();
   const location = useLocation();
 
-  const navItems = [
+  const allNavItems = [
     { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
     { name: 'Events', path: '/dashboard/events', icon: Calendar },
     { name: 'Teams', path: '/dashboard/teams', icon: Users },
@@ -16,8 +17,13 @@ export default function Sidebar() {
     { name: 'Certificates', path: '/dashboard/certificates', icon: FileBadge },
     { name: 'Rewards', path: '/dashboard/rewards', icon: Award },
     { name: 'Approvals', path: '/dashboard/approvals', icon: ShieldAlert },
+    { name: 'Users', path: '/dashboard/users', icon: Users },
+    { name: 'Analytics', path: '/dashboard/analytics', icon: BarChart3 },
+    { name: 'Settings', path: '/dashboard/settings', icon: Settings },
     { name: 'Notifications', path: '/dashboard/notifications', icon: Bell },
   ];
+
+  const navItems = allNavItems.filter(item => hasPermission(user?.role, item.path));
 
   return (
     <div className="w-64 h-screen bg-card/50 backdrop-blur-md border-r border-border flex flex-col relative z-20">

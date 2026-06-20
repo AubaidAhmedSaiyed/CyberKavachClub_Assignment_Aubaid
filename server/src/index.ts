@@ -9,6 +9,7 @@ import requestsRoutes from './routes/requests.routes';
 import teamsRoutes from './routes/teams.routes';
 import attendanceRoutes from './routes/attendance.routes';
 import certificatesRoutes from './routes/certificates.routes';
+import analyticsRoutes from './routes/analytics.routes';
 
 dotenv.config();
 
@@ -16,7 +17,10 @@ const app: Express = express();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
 app.use(helmet());
 app.use(morgan('dev'));
 
@@ -27,6 +31,7 @@ app.use('/api/requests', requestsRoutes);
 app.use('/api/teams', teamsRoutes);
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/certificates', certificatesRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'ok', message: 'CyberKavach API is running' });
