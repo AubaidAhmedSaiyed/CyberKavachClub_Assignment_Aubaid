@@ -80,3 +80,35 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+export const getLeaderboard = async (req: Request, res: Response): Promise<void> => {
+  try {
+    // Return all approved users sorted by their first name or let client handle points logic
+    const users = await prisma.user.findMany({
+      where: { isApproved: true },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        role: true,
+      },
+    });
+
+    // Map users to dummy points structure just to fulfill frontend contract, 
+    // or calculate points based on attendance in a real system.
+    const leaderboard = users.map((user) => ({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      points: Math.floor(Math.random() * 500) + 100, // Dummy random points
+      badges: ['Member']
+    }));
+
+    // Sort by points descending
+    leaderboard.sort((a, b) => b.points - a.points);
+
+    res.status(200).json(leaderboard);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
