@@ -1,0 +1,95 @@
+openapi: 3.0.1
+info:
+  title: CyberKavach API
+  version: 1.0.0
+  description: Executable contract for the CyberKavach Backend API.
+servers:
+  - url: http://localhost:5000
+paths:
+  /api/events:
+    get:
+      summary: Get all events
+      description: Returns a list of events based on user role.
+      responses:
+        '200':
+          description: A JSON array of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+components:
+  schemas:
+    Event:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - venue
+        - date
+        - time
+        - teamSize
+        - capacity
+        - registrationDeadline
+        - isPublished
+        - isArchived
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        venue:
+          type: string
+        date:
+          type: string
+          format: date-time
+        time:
+          type: string
+        rules:
+          type: array
+          items:
+            type: string
+        tags:
+          type: array
+          items:
+            type: string
+        categories:
+          type: array
+          items:
+            type: string
+        teamSize:
+          type: integer
+        capacity:
+          type: integer
+        registrationDeadline:
+          type: string
+          format: date-time
+        bannerImage:
+          type: string
+          nullable: true
+        isPublished:
+          type: boolean
+        isArchived:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        certificateTemplateId:
+          type: string
+          nullable: true
+        _count:
+          type: object
+          properties:
+            registrations:
+              type: integer
+            waitlists:
+              type: integer

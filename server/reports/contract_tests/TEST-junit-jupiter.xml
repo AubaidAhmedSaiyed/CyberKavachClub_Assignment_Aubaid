@@ -1,0 +1,77 @@
+<testsuite errors="1" failures="0" hostname="LAPTOP-GLR00F1U" name="Contract Tests" skipped="0" tests="1" time="12.79" timestamp="2026-06-25T19:29:40">
+<properties>
+<property name="file.encoding" value="UTF-8"/>
+<property name="file.separator" value="\"/>
+<property name="java.class.path" value="C:\Users\ASUS\Downloads\CyberKavachClub_Assignment_Aubaid\server\node_modules\specmatic\specmatic.jar"/>
+<property name="java.class.version" value="68.0"/>
+<property name="java.home" value="C:\Program Files\Java\jdk-24"/>
+<property name="java.io.tmpdir" value="C:\Users\ASUS\AppData\Local\Temp\"/>
+<property name="java.library.path" value="C:\Program Files\Java\jdk-24\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Users\ASUS\Downloads\CyberKavachClub_Assignment_Aubaid\server\node_modules\.bin;C:\Users\ASUS\Downloads\CyberKavachClub_Assignment_Aubaid\server\node_modules\.bin;C:\Users\ASUS\Downloads\CyberKavachClub_Assignment_Aubaid\node_modules\.bin;C:\Users\ASUS\Downloads\node_modules\.bin;C:\Users\ASUS\node_modules\.bin;C:\Users\node_modules\.bin;C:\node_modules\.bin;C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\run-script\lib\node-gyp-bin;C:\Users\ASUS\Downloads\CyberKavachClub_Assignment_Aubaid\server\node_modules\.bin;C:\Users\ASUS\Downloads\CyberKavachClub_Assignment_Aubaid\node_modules\.bin;C:\Users\ASUS\Downloads\node_modules\.bin;C:\Users\ASUS\node_modules\.bin;C:\Users\node_modules\.bin;C:\node_modules\.bin;C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\run-script\lib\node-gyp-bin;C:/Users/ASUS/.gemini/antigravity/bin;C:\Users\ASUS\AppData\Roaming\Antigravity\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Python313\Scripts\;C:\Python313\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\MinGW\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\MySQL;C:\Program Files\MongoDB\Server\8.0\bin;C:\Program Files\Java\jdk-24\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files (x86)\Microsoft SQL Server\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\180\Tools\Binn\;C:\Program Files\Microsoft SQL Server\170\DTS\Binn\;C:\Users\ASUS\AppData\Roaming\Python\Python313\Scripts;C:\Users\ASUS\.cargo\bin;C:\Users\ASUS\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\ASUS\AppData\Local\Programs\Python\Python311\;C:\Users\ASUS\AppData\Local\Microsoft\WindowsApps;C:\Users\ASUS\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\ASUS\AppData\Roaming\npm;C:\Program Files\mongosh\;C:\Users\ASUS\AppData\Local\Programs\cursor\resources\app\bin;C:\Users\ASUS\AppData\Local\Programs\Antigravity\bin;C:\Users\ASUS\AppData\Roaming\Python\Python313\Scripts;;."/>
+<property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+<property name="java.runtime.version" value="24.0.1+9-30"/>
+<property name="java.specification.name" value="Java Platform API Specification"/>
+<property name="java.specification.vendor" value="Oracle Corporation"/>
+<property name="java.specification.version" value="24"/>
+<property name="java.vendor" value="Oracle Corporation"/>
+<property name="java.vendor.url" value="https://java.oracle.com/"/>
+<property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+<property name="java.version" value="24.0.1"/>
+<property name="java.version.date" value="2025-04-15"/>
+<property name="java.vm.compressedOopsMode" value="Zero based"/>
+<property name="java.vm.info" value="mixed mode, sharing"/>
+<property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+<property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+<property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+<property name="java.vm.specification.version" value="24"/>
+<property name="java.vm.vendor" value="Oracle Corporation"/>
+<property name="java.vm.version" value="24.0.1+9-30"/>
+<property name="jdk.debug" value="release"/>
+<property name="line.separator" value="&#13;&#10;"/>
+<property name="native.encoding" value="Cp1252"/>
+<property name="os.arch" value="amd64"/>
+<property name="os.name" value="Windows 11"/>
+<property name="os.version" value="10.0"/>
+<property name="path.separator" value=";"/>
+<property name="picocli.usage.width" value="auto"/>
+<property name="stderr.encoding" value="Cp1252"/>
+<property name="stdout.encoding" value="Cp1252"/>
+<property name="sun.arch.data.model" value="64"/>
+<property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-24\bin"/>
+<property name="sun.cpu.endian" value="little"/>
+<property name="sun.cpu.isalist" value="amd64"/>
+<property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+<property name="sun.java.command" value="C:\Users\ASUS\Downloads\CyberKavachClub_Assignment_Aubaid\server\node_modules\specmatic\specmatic.jar test spec.yaml --host localhost --port 5000 --junitReportDir=reports/contract_tests"/>
+<property name="sun.java.launcher" value="SUN_STANDARD"/>
+<property name="sun.jnu.encoding" value="Cp1252"/>
+<property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+<property name="sun.os.patch.level" value=""/>
+<property name="user.country" value="IN"/>
+<property name="user.dir" value="C:\Users\ASUS\Downloads\CyberKavachClub_Assignment_Aubaid\server"/>
+<property name="user.home" value="C:\Users\ASUS"/>
+<property name="user.language" value="en"/>
+<property name="user.name" value="ASUS"/>
+<property name="user.script" value=""/>
+<property name="user.timezone" value="Asia/Calcutta"/>
+<property name="user.variant" value=""/>
+</properties>
+<testcase classname="io.specmatic.test.SpecmaticJUnitSupport" name="Contract Tests &gt; SpecmaticJUnitSupport &gt; contractTest() &gt; Scenario: GET /api/events -&gt; 200" time="6.399">
+<error message="Cannot connect to server at: http://localhost:5000&#10;Reason: Request timeout has expired [url=http://localhost:5000/api/events, request_timeout=6000 ms]&#10;Please check:&#10;- Is the server running?&#10;- Is the testBaseURL correct?" type="io.specmatic.core.pattern.ContractException"><![CDATA[ContractException(errorMessage=Cannot connect to server at: http://localhost:5000
+Reason: Request timeout has expired [url=http://localhost:5000/api/events, request_timeout=6000 ms]
+Please check:
+- Is the server running?
+- Is the testBaseURL correct?, breadCrumb=, exceptionCause=null, scenario=null, failureReason=null, isCycle=false, ruleViolationReport=null)
+	at io.specmatic.test.SpecmaticJUnitSupport.dynamicTestStream$lambda$0$1(SpecmaticJUnitSupport.kt:520)
+	at java.base/java.util.Optional.ifPresent(Optional.java:178)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]/[class:io.specmatic.test.SpecmaticJUnitSupport]/[test-factory:contractTest()]/[dynamic-test:#1]
+display-name: Contract Tests > SpecmaticJUnitSupport > contractTest() > Scenario: GET /api/events -> 200
+]]></system-out>
+</testcase>
+<system-out><![CDATA[
+unique-id: [engine:junit-jupiter]
+display-name: Contract Tests
+]]></system-out>
+</testsuite>

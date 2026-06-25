@@ -1,0 +1,11 @@
+{
+  "sources": [
+    {
+      "provider": "git",
+      "repository": "",
+      "provides": [
+        "spec.yaml"
+      ]
+    }
+  ]
+}
