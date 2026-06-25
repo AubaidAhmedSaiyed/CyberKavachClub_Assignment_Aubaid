@@ -7,5 +7,17 @@
         "spec.yaml"
       ]
     }
-  ]
+  ],
+  "report": {
+    "formats": [
+      {
+        "type": "html",
+        "outputDirectory": "reports/html"
+      },
+      {
+        "type": "json",
+        "outputDirectory": "reports/json"
+      }
+    ]
+  }
 }

@@ -6,19 +6,22 @@ info:
 servers:
   - url: http://localhost:5000
 paths:
-  /api/events:
+  /health:
     get:
-      summary: Get all events
-      description: Returns a list of events based on user role.
+      summary: Health check endpoint
+      description: Returns the health status of the API.
       responses:
         '200':
-          description: A JSON array of events
+          description: API is running
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Event'
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
 components:
   schemas:
     Event:
