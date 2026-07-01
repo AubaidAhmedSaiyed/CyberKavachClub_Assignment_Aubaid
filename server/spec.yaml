@@ -2,14 +2,16 @@ openapi: 3.0.1
 info:
   title: CyberKavach API
   version: 1.0.0
-  description: Executable contract for the CyberKavach Backend API.
+  description: Executable contract for the CyberKavach Backend API (Auth, Events, Teams).
 servers:
   - url: http://localhost:5000
+security:
+  - BearerAuth: []
 paths:
   /health:
     get:
       summary: Health check endpoint
-      description: Returns the health status of the API.
+      security: []
       responses:
         '200':
           description: API is running
@@ -22,77 +24,225 @@ paths:
                     type: string
                   message:
                     type: string
+              example:
+                status: "ok"
+                message: "CyberKavach API is running"
+
+  /api/auth/register:
+    post:
+      summary: Register a new user
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [firstName, lastName, email, password]
+              properties:
+                firstName: { type: string }
+                lastName: { type: string }
+                email: { type: string }
+                password: { type: string }
+                studentId: { type: string }
+            example:
+              firstName: "John"
+              lastName: "Doe"
+              email: "john@example.com"
+              password: "password123"
+              studentId: "STU123"
+      responses:
+        '201':
+          description: User registered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: { type: string }
+                  token: { type: string }
+                  user: { $ref: '#/components/schemas/User' }
+
+  /api/auth/login:
+    post:
+      summary: Login user
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string }
+                password: { type: string }
+            example:
+              email: "john@example.com"
+              password: "password123"
+      responses:
+        '200':
+          description: User logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: { type: string }
+                  token: { type: string }
+                  user: { $ref: '#/components/schemas/User' }
+
+  /api/events:
+    get:
+      summary: Get all events
+      responses:
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '200':
+          description: A JSON array of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+    post:
+      summary: Create an event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventCreateInput'
+      responses:
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '201':
+          description: Event created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: { type: string }
+                  event: { $ref: '#/components/schemas/Event' }
+
+  /api/teams:
+    get:
+      summary: Get all teams
+      responses:
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '200':
+          description: Array of teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Team' }
+    post:
+      summary: Create a team
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string }
+      responses:
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '201':
+          description: Team created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: { type: string }
+                  team: { $ref: '#/components/schemas/Team' }
+
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    UnauthorizedError:
+      description: Unauthorized request missing a valid JWT token
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+          example:
+            message: "No token, authorization denied"
   schemas:
+    EventCreateInput:
+      type: object
+      required: [name, description, venue, date, time, registrationDeadline]
+      properties:
+        name: { type: string }
+        description: { type: string }
+        venue: { type: string }
+        date: { type: string, format: date-time }
+        time: { type: string }
+        teamSize: { type: integer }
+        capacity: { type: integer }
+        registrationDeadline: { type: string, format: date-time }
+        tags: { type: array, items: { type: string } }
+        rules: { type: array, items: { type: string } }
+        categories: { type: array, items: { type: string } }
+      example:
+        name: "Cyber Security Hackathon"
+        description: "A 24-hour hackathon"
+        venue: "Main Hall"
+        date: "2026-08-15T00:00:00.000Z"
+        time: "10:00 AM"
+        registrationDeadline: "2026-08-10T00:00:00.000Z"
     Event:
       type: object
-      required:
-        - id
-        - name
-        - description
-        - venue
-        - date
-        - time
-        - teamSize
-        - capacity
-        - registrationDeadline
-        - isPublished
-        - isArchived
-        - createdAt
-        - updatedAt
+      required: [id, name, description, venue, date, time, teamSize, capacity, registrationDeadline, isPublished, isArchived, createdAt, updatedAt]
       properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        venue:
-          type: string
-        date:
-          type: string
-          format: date-time
-        time:
-          type: string
-        rules:
-          type: array
-          items:
-            type: string
-        tags:
-          type: array
-          items:
-            type: string
-        categories:
-          type: array
-          items:
-            type: string
-        teamSize:
-          type: integer
-        capacity:
-          type: integer
-        registrationDeadline:
-          type: string
-          format: date-time
-        bannerImage:
-          type: string
-          nullable: true
-        isPublished:
-          type: boolean
-        isArchived:
-          type: boolean
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        certificateTemplateId:
-          type: string
-          nullable: true
-        _count:
-          type: object
-          properties:
-            registrations:
-              type: integer
-            waitlists:
-              type: integer
+        id: { type: string }
+        name: { type: string }
+        description: { type: string }
+        venue: { type: string }
+        date: { type: string, format: date-time }
+        time: { type: string }
+        rules: { type: array, items: { type: string } }
+        tags: { type: array, items: { type: string } }
+        categories: { type: array, items: { type: string } }
+        teamSize: { type: integer }
+        capacity: { type: integer }
+        registrationDeadline: { type: string, format: date-time }
+        bannerImage: { type: string, nullable: true }
+        isPublished: { type: boolean }
+        isArchived: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    User:
+      type: object
+      required: [id, email, firstName, lastName, role, points, isApproved, createdAt, updatedAt]
+      properties:
+        id: { type: string }
+        email: { type: string }
+        firstName: { type: string }
+        lastName: { type: string }
+        studentId: { type: string, nullable: true }
+        role: { type: string }
+        points: { type: integer }
+        isApproved: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    Team:
+      type: object
+      required: [id, teamId, name, createdAt, updatedAt]
+      properties:
+        id: { type: string }
+        teamId: { type: string }
+        name: { type: string }
+        qrCode: { type: string, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }

@@ -7,8 +7,8 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:contract": "npx specmatic test spec.yaml --host localhost --port 5000 --junitReportDir=reports/contract_tests",
-    "test:resilience": "npx specmatic test spec.yaml --host localhost --port 5000 --junitReportDir=reports/resilience_tests"
+    "test:contract": "npx specmatic test spec.yaml --host localhost --port 5000 --examples=test_examples",
+    "test:resilience": "cross-env SPECMATIC_GENERATIVE_TESTS=true npx specmatic test spec.yaml --host localhost --port 5000 --examples=test_examples"
   },
   "keywords": [],
   "author": "",
@@ -36,6 +36,7 @@
     "@types/morgan": "^1.9.10",
     "@types/node": "^26.0.0",
     "@types/socket.io": "^3.0.1",
+    "cross-env": "^10.1.0",
     "nodemon": "^3.1.14",
     "prisma": "^5.22.0",
     "specmatic": "^2.48.0",

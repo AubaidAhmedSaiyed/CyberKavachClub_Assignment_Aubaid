@@ -1,0 +1,29 @@
+{
+  "http-request": {
+    "method": "POST",
+    "path": "/api/auth/login",
+    "body": {
+      "email": "external@example.com",
+      "password": "password123"
+    }
+  },
+  "http-response": {
+    "status": 200,
+    "body": {
+      "message": "Login successful",
+      "token": "eyJhbGci...",
+      "user": {
+        "id": "60d5ecb54",
+        "email": "external@example.com",
+        "firstName": "John",
+        "lastName": "Doe",
+        "studentId": "STU123",
+        "role": "GUEST",
+        "points": 10,
+        "isApproved": true,
+        "createdAt": "2026-08-15T00:00:00.000Z",
+        "updatedAt": "2026-08-15T00:00:00.000Z"
+      }
+    }
+  }
+}

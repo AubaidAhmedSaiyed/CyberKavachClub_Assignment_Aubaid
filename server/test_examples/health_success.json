@@ -1,0 +1,13 @@
+{
+  "http-request": {
+    "method": "GET",
+    "path": "/health"
+  },
+  "http-response": {
+    "status": 200,
+    "body": {
+      "status": "ok",
+      "message": "CyberKavach API is running"
+    }
+  }
+}
