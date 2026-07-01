@@ -1,0 +1,35 @@
+{
+  "http-request": {
+    "method": "POST",
+    "path": "/api/events",
+    "body": {
+      "name": "New Hackathon",
+      "description": "Another coding event",
+      "venue": "Room 101",
+      "date": "2026-10-01T00:00:00.000Z",
+      "time": "10:00 AM",
+      "registrationDeadline": "2026-09-25T00:00:00.000Z"
+    }
+  },
+  "http-response": {
+    "status": 201,
+    "body": {
+      "message": "Event created",
+      "event": {
+        "id": "newevent123",
+        "name": "New Hackathon",
+        "description": "Another coding event",
+        "venue": "Room 101",
+        "date": "2026-10-01T00:00:00.000Z",
+        "time": "10:00 AM",
+        "teamSize": 1,
+        "capacity": 100,
+        "registrationDeadline": "2026-09-25T00:00:00.000Z",
+        "isPublished": false,
+        "isArchived": false,
+        "createdAt": "2026-08-15T00:00:00.000Z",
+        "updatedAt": "2026-08-15T00:00:00.000Z"
+      }
+    }
+  }
+}

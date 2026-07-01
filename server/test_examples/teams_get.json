@@ -1,0 +1,18 @@
+{
+  "http-request": {
+    "method": "GET",
+    "path": "/api/teams"
+  },
+  "http-response": {
+    "status": 200,
+    "body": [
+      {
+        "id": "team123",
+        "teamId": "TEAM-001",
+        "name": "Alpha Squad",
+        "createdAt": "2026-08-15T00:00:00.000Z",
+        "updatedAt": "2026-08-15T00:00:00.000Z"
+      }
+    ]
+  }
+}

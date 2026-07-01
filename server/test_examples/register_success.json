@@ -1,0 +1,31 @@
+{
+  "http-request": {
+    "method": "POST",
+    "path": "/api/auth/register",
+    "body": {
+      "firstName": "Alice",
+      "lastName": "Smith",
+      "email": "alice@example.com",
+      "password": "securepassword",
+      "studentId": "STU999"
+    }
+  },
+  "http-response": {
+    "status": 201,
+    "body": {
+      "message": "User created",
+      "token": "eyJhbGciOi...",
+      "user": {
+        "id": "abc123def",
+        "email": "alice@example.com",
+        "firstName": "Alice",
+        "lastName": "Smith",
+        "role": "GUEST",
+        "points": 0,
+        "isApproved": false,
+        "createdAt": "2026-08-15T00:00:00.000Z",
+        "updatedAt": "2026-08-15T00:00:00.000Z"
+      }
+    }
+  }
+}

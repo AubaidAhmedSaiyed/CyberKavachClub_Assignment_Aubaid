@@ -1,0 +1,22 @@
+{
+  "http-request": {
+    "method": "POST",
+    "path": "/api/teams",
+    "body": {
+      "name": "Bravo Squad"
+    }
+  },
+  "http-response": {
+    "status": 201,
+    "body": {
+      "message": "Team created",
+      "team": {
+        "id": "newteam123",
+        "teamId": "TEAM-002",
+        "name": "Bravo Squad",
+        "createdAt": "2026-08-15T00:00:00.000Z",
+        "updatedAt": "2026-08-15T00:00:00.000Z"
+      }
+    }
+  }
+}
